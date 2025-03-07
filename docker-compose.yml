@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=spire_stats
+      - POSTGRES_PASSWORD=supersecret
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/run/postgresql/data
+volumes:
+  postgres:
