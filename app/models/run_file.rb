@@ -1,0 +1,2 @@
+class RunFile < ApplicationRecord
+end

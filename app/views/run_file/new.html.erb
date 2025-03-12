@@ -1,0 +1,7 @@
+<main class="container">
+    <%= form_with url: "/run_files/create", multipart: true do |form| %>
+        <%= form.file_field :run_file %>
+        <%= form.submit %>
+    <% end %>
+    <%= link_to "Index", run_files_path %>
+</main>

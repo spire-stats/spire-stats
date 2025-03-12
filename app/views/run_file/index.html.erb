@@ -1,0 +1,12 @@
+<main class="container">
+    <%= @run_files.each do |file| %>
+        <div>
+          <%= file.id %>
+        </div>
+        <div>
+            <%= file.run_data %>
+        </div>
+    <% end %>
+
+    <span>Run files: <%= @run_files %></span>
+</main>
