@@ -4,10 +4,19 @@ To run the server you'll need Ruby installed at version 3.3.5 or higher, and a l
 
 ## Ruby installation
 
-This project manages language installations with asdf. If you don't have it installed, you can pick it up [here](https://asdf-vm.com/guide/getting-started.html). With that installed, you can simply run
+This project manages language installations with asdf. If you don't have it installed, you can pick it up [here](https://asdf-vm.com/guide/getting-started.html). With that installed, next
+[install system dependencies](https://github.com/rbenv/ruby-build/wiki#suggested-build-environment) for Ruby.
+
+With that done, you can simply run:
 
 ```bash
 $ asdf plugin add ruby && asdf plugin add nodejs
+```
+
+Now install project dependencies
+
+```bash
+$ bundle install
 ```
 
 ## Starting the development server
@@ -24,4 +33,10 @@ or if you want a terminal window attached to the database container just:
 
 ```sh
 $ docker compose up
+```
+
+Then you can start the server:
+
+```sh
+$ bundle exec rails s
 ```
