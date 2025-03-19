@@ -35,6 +35,12 @@ or if you want a terminal window attached to the database container just:
 $ docker compose up
 ```
 
+Migrate your database:
+
+```sh
+$ bundle exec rails db:migrate
+```
+
 Then you can start the server:
 
 ```sh
