@@ -1,24 +1,27 @@
-# README
+# Getting Started
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To run the server you'll need Ruby installed at version 3.3.5 or higher, and a local docker installation. For docker you can just visit the [official website](https://www.docker.com/products/docker-desktop/) and choose the correct download for your platform. If you don't have Ruby installed you can use the following instructions:
 
-Things you may want to cover:
+## Ruby installation
 
-* Ruby version
+This project manages language installations with asdf. If you don't have it installed, you can pick it up [here](https://asdf-vm.com/guide/getting-started.html). With that installed, you can simply run
 
-* System dependencies
+```bash
+$ asdf plugin add ruby && asdf plugin add nodejs
+```
 
-* Configuration
+## Starting the development server
 
-* Database creation
+With those requirements met, you can run the following:
 
-* Database initialization
+Start the database container:
 
-* How to run the test suite
+```sh
+$ docker compose up -d
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+or if you want a terminal window attached to the database container just:
 
-* Deployment instructions
-
-* ...
+```sh
+$ docker compose up
+```

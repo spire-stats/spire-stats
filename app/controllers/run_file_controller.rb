@@ -7,10 +7,10 @@ class RunFileController < ApplicationController
       logger.info uploaded_file
       run_file.save!
 
-      return redirect_to "/run_files/index", status: 201
+      return render :index, status: 201
     end
 
-    render index
+    render :index
   end
 
   def index
