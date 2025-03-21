@@ -1,7 +1,16 @@
 <main class="container">
-    <%= form_with url: "/run_files/create", multipart: true do |form| %>
-        <%= form.file_field :run_file %>
-        <%= form.submit %>
-    <% end %>
+    <div class="form-container">
+        <%= form_with model: @run_file do |form| %>
+            <div class="form-controls" style="display: flex; align-items: center;">
+                <%= form.file_field :run_data %>
+                <%= form.submit %>
+            </div>
+        <% end %>
+        <div class="error-container" style="min-height: 20px;">
+            <% if @run_file.errors.any? %>
+                <div style="color: red; font-size: 12px;"><%= @run_file.errors.first.message %></div>
+            <% end %>
+        </div>
+    </div>
     <%= link_to "Index", run_files_path %>
 </main>
