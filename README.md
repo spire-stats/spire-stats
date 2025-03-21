@@ -10,7 +10,19 @@ This project manages language installations with asdf. If you don't have it inst
 With that done, you can simply run:
 
 ```bash
-$ asdf plugin add ruby && asdf plugin add nodejs
+$ asdf plugin add ruby
+```
+
+Install ruby:
+
+```bash
+$ asdf install ruby 3.3.5
+```
+
+Make sure you have a database client installed:
+
+```bash
+brew install postgresql
 ```
 
 Now install project dependencies

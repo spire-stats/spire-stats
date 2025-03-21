@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   get "run_files/new" => "run_file#new"
   get "run_files" => "run_file#index"
-  post "run_files/create" => "run_file#create"
+  post "run_files" => "run_file#create"
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
