@@ -88,5 +88,7 @@ accessories:
         POSTGRES_USERNAME: spire_stats
       secret:
         - POSTGRES_PASSWORD
+    files:
+      - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
     volumes:
       - /mnt/HC_Volume_102404264:/var/lib/postgresql/data
