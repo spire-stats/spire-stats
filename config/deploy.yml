@@ -8,8 +8,7 @@ image: kagenlh/spire-stats
 servers:
   web:
     - spirestats.info
-  network:
-    - spire_network
+  network: spire_network
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -94,5 +93,4 @@ accessories:
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
     volumes:
       - /mnt/HC_Volume_102404264:/var/lib/postgresql/data
-    network:
-      - spire_network
+    network: spire_network
