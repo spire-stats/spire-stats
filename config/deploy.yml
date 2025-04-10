@@ -82,8 +82,6 @@ accessories:
   db:
     image: postgres:17.4
     host: spirestats.info
-    # Change to 3306 to expose port to the world instead of just local network.
-    port: "127.0.0.1:5432:5432"
     env:
       clear:
         POSTGRES_DB: spire_stats_production

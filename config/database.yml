@@ -87,4 +87,6 @@ production:
     <<: *default
     database: spire_stats_production
     username: spire_stats
+    host: db
+    port: 5432
     password: <%= ENV["POSTGRES_PASSWORD"] %>
