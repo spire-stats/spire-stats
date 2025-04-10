@@ -8,7 +8,8 @@ image: kagenlh/spire-stats
 servers:
   web:
     - spirestats.info
-  network: spire_network
+
+
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -83,6 +84,7 @@ accessories:
   db:
     image: postgres:17.4
     host: spirestats.info
+    port: "127.0.0.1:5432:5432"
     env:
       clear:
         POSTGRES_DB: spire_stats_production
@@ -93,4 +95,3 @@ accessories:
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
     volumes:
       - /mnt/HC_Volume_102404264:/var/lib/postgresql/data
-    network: spire_network
