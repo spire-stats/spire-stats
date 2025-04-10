@@ -1,0 +1,1 @@
+CREATE DATABASE spire_stats_production;
