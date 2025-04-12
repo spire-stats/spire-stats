@@ -86,3 +86,8 @@ production:
   primary: &primary_production
     <<: *default
     url: <%= ENV.fetch("DATABASE_URL", "postgres://localhost:5432/spire_stats_development") %>
+  queue:
+    <<: *primary_production
+    url: <%= ENV.fetch("QUEUE_DATABASE_URL", "postgres://localhost:5432/spire_stats_development_queue") %>
+    migrations_paths: db/queue_migrate
+  
