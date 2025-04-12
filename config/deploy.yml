@@ -8,8 +8,6 @@ image: kagenlh/spire-stats
 servers:
   web:
     - spirestats.info
-
-
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -37,7 +35,7 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
-    - POSTGRES_PASSWORD
+    - DATABASE_URL
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
@@ -51,8 +49,6 @@ env:
 
     # Match this to any external database server to configure Active Record correctly
     # Use spire_stats-db for a db accessory server on same machine via local kamal docker network.
-    DB_HOST: spire_stats-db
-
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
 
@@ -79,19 +75,3 @@ asset_path: /rails/public/assets
 # Configure the image builder.
 builder:
   arch: amd64
-
-accessories:
-  db:
-    image: postgres:17.4
-    host: spirestats.info
-    port: "127.0.0.1:5432:5432"
-    env:
-      clear:
-        POSTGRES_DB: spire_stats_production
-        POSTGRES_USERNAME: spire_stats
-      secret:
-        - POSTGRES_PASSWORD
-    files:
-      - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-    volumes:
-      - /mnt/HC_Volume_102404264:/var/lib/postgresql/data
