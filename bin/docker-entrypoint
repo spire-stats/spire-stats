@@ -8,7 +8,7 @@ fi
 
 # If running the rails server then create or migrate existing database
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  ./bin/rails db:drop:queue
+  DISABLE_DATABASE_ENVIRONMENT_CHECK=1 ./bin/rails db:drop:queue
   ./bin/rails solid_queue:install
   ./bin/rails db:prepare
 fi
