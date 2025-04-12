@@ -85,18 +85,9 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: spire_stats_production
-    username: spire_stats
-    password: <%= ENV["SPIRE_STATS_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: spire_stats_production_cache
-    migrations_paths: db/cache_migrate
+    url: <%= ENV.fetch("DATABASE_URL", "postgres://localhost:5432/spire_stats_development") %>
   queue:
-    <<: *primary_production
-    database: spire_stats_production_queue
+    <<: *default
+    url: <%= ENV.fetch("QUEUE_DATABASE_URL", "postgres://localhost:5432/spire_stats_development_queue") %>
     migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: spire_stats_production_cable
-    migrations_paths: db/cable_migrate
+  
