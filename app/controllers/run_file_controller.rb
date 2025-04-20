@@ -1,6 +1,4 @@
 class RunFileController < ApplicationController
-  allow_unauthenticated_access
-
   def create
     uploaded_file = params[:run_file]&.dig(:run_data)
     @run_file = RunFile.new(run_data: uploaded_file&.read)
