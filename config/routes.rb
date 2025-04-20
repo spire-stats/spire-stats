@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "run_file#index"
 
-  if Current.user&.admin?
+  authenticate :user, ->(user) { user.admin? } do
     mount PgHero::Engine, at: "pghero"
   end
 end
