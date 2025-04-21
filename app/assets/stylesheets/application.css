@@ -9,7 +9,7 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Spectral+SC:wght@400;700&family=UnifrakturCook:wght@700&family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Spectral+SC:wght@400;700&family=UnifrakturCook:wght@700&family=Inter:wght@400;600;700&display=swap');
 
 html, body {
   width: 100vw;
@@ -150,7 +150,7 @@ body {
 
 
 h1, h2, h3, h4, h5, h6, .auth-heading {
-  font-family: 'UnifrakturCook', 'UnifrakturMaguntia', cursive, serif;
+  font-family: 'Montserrat', 'Inter', sans-serif;
   color: #ffe066;
   letter-spacing: 1px;
   margin-top: 0;
