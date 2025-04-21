@@ -9,6 +9,13 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
+/* Remove bottom margin from main container ONLY on the home page */
+body.home .page-background, .home-page .page-background {
+  margin-bottom: 0 !important;
+  min-height: calc(100vh - 70px); /* Adjust for nav height if needed */
+}
+
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Spectral+SC:wght@400;700&family=UnifrakturCook:wght@700&family=Inter:wght@400;600;700&display=swap');
 
 html, body {
