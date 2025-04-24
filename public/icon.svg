@@ -1,3 +1,14 @@
-<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="256" cy="256" r="256" fill="red"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="bgA" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#23232a"/>
+      <stop offset="100%" stop-color="#18181c"/>
+    </radialGradient>
+    <filter id="glowA" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#ffe066" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="url(#bgA)"/>
+  <path d="M16 44 Q32 20 48 44" fill="none" stroke="#ffe066" stroke-width="4" filter="url(#glowA)"/>
+  <circle cx="32" cy="36" r="4" fill="#ffe066" filter="url(#glowA)"/>
 </svg>
