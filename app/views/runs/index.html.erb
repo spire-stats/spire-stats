@@ -1,0 +1,27 @@
+<% content_for :title, 'Run History | Spire Stats' %>
+  <h1>Run History</h1>
+  <table class="run-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Character</th>
+        <th>Ascension</th>
+        <th>Result</th>
+        <th>Floor</th>
+        <th>Enemy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @runs.each do |run| %>
+        <tr>
+          <td><%= run.run_at.strftime('%Y-%m-%d %H:%M') %></td>
+          <td><%= run.character %></td>
+          <td><%= run.ascension_level %></td>
+          <td><%= run.victory ? 'Victory' : 'Defeat' %></td>
+          <td><%= run.floor_reached %></td>
+          <td><%= run.killed_by.presence || '-' %></td>
+          <td><%= link_to 'View', run_path(run), class: 'nav-link' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

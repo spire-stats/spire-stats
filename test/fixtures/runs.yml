@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  victory: false
+  floor_reached: 1
+  killed_by: MyString
+  ascension_level: 1
+  character: MyString
+  run_at: 2025-04-22 01:12:41
+  seed: MyString
+  notes: MyText
+
+two:
+  victory: false
+  floor_reached: 1
+  killed_by: MyString
+  ascension_level: 1
+  character: MyString
+  run_at: 2025-04-22 01:12:41
+  seed: MyString
+  notes: MyText

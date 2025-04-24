@@ -1,0 +1,29 @@
+<% content_for :title, "Run Details | Spire Stats" %>
+  <h1>Run Details</h1>
+  <dl class="run-details">
+    <dt>Date</dt>
+    <dd><%= @run.run_at.strftime('%Y-%m-%d %H:%M') %></dd>
+
+    <dt>Character</dt>
+    <dd><%= @run.character %></dd>
+
+    <dt>Ascension Level</dt>
+    <dd><%= @run.ascension_level %></dd>
+
+    <dt>Result</dt>
+    <dd><%= @run.victory ? 'Victory' : 'Defeat' %></dd>
+
+    <dt>Floor Reached</dt>
+    <dd><%= @run.floor_reached %></dd>
+
+    <dt>Killed By</dt>
+    <dd><%= @run.killed_by.presence || 'N/A' %></dd>
+
+    <dt>Seed</dt>
+    <dd><%= @run.seed %></dd>
+
+    <dt>Notes</dt>
+    <dd><%= simple_format(@run.notes.presence || 'No additional notes.') %></dd>
+  </dl>
+
+  <%= link_to 'Back to History', runs_path, class: 'nav-link' %>
