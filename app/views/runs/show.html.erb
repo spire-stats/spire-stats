@@ -1,0 +1,66 @@
+<% content_for :title, 'Run Details | Spire Stats' %>
+
+<div class="run-details-header">
+  <div class="run-details-back">
+    <%= link_to runs_path, class: 'back-link' do %>
+      <span class="back-arrow">←</span> Back to History
+    <% end %>
+  </div>
+  
+  <h1>Run Details</h1>
+  
+  <div class="run-info-banner <%= @run.victory ? 'victory-banner' : 'defeat-banner' %>">
+    <div class="run-info-content">
+      <span class="character-badge <%= @run.character&.downcase %>">
+        <%= @run.character %>
+      </span>
+      <span class="run-banner-result"><%= @run.victory ? 'Victory' : 'Defeat' %></span>
+      <span class="run-banner-ascension">Ascension <%= @run.ascension_level %></span>
+    </div>
+  </div>
+</div>
+
+<div class="run-details-container">
+  <div class="run-details-content">
+    <dl class="run-details">
+      <dt>Date</dt>
+      <dd>
+        <% if @run.run_at %>
+          <%= @run.run_at.strftime('%Y-%m-%d %H:%M') %>
+        <% else %>-<% end %>
+      </dd>
+
+      <dt>Character</dt>
+      <dd>
+        <span class="character-badge <%= @run.character&.downcase %>">
+          <%= @run.character %>
+        </span>
+      </dd>
+
+      <dt>Ascension Level</dt>
+      <dd><%= @run.ascension_level %></dd>
+
+      <dt>Result</dt>
+      <dd class="<%= @run.victory ? 'victory' : 'defeat' %>-text">
+        <%= @run.victory ? 'Victory' : 'Defeat' %>
+      </dd>
+
+      <dt>Floor Reached</dt>
+      <dd><%= @run.floor_reached %></dd>
+
+      <% if @run.killed_by.present? %>
+        <dt>Defeated By</dt>
+        <dd><%= @run.killed_by %></dd>
+      <% end %>
+
+      <dt>Seed</dt>
+      <dd class="seed-value"><%= @run.seed %></dd>
+    </dl>
+  </div>
+  
+  <div class="run-actions-panel">
+    <%= link_to runs_path, class: 'run-action-btn primary' do %>
+      Back to History
+    <% end %>
+  </div>
+</div>

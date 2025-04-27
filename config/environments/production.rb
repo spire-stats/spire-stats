@@ -61,7 +61,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "spirestats.info" }
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.mailgun.org", # or smtp.sendgrid.net, etc.
+    address: "smtp.mailgun.org",
     port: 587,
     domain: "spirestats.info",
     user_name: Rails.application.credentials.dig(:smtp, :login),
