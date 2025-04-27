@@ -1,0 +1,82 @@
+<% content_for :title, 'Run History | Spire Stats' %>
+<header class="run-header">
+  <h1>Run History</h1>
+  <div class="run-stats">
+    <div class="stat-box">
+      <span class="stat-value"><%= @runs.count %></span>
+      <span class="stat-label">Total Runs</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-value"><%= @runs.where(victory: true).count %></span>
+      <span class="stat-label">Victories</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-value"><%= @runs.maximum(:ascension_level) || 0 %></span>
+      <span class="stat-label">Highest Ascension</span>
+    </div>
+  </div>
+</header>
+
+<div class="run-filter-bar">
+  <%# Future filter options can go here %>
+</div>
+
+<div class="run-container">
+  <table class="run-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Character</th>
+        <th>Ascension Level</th>
+        <th>Result</th>
+        <th>Floor</th>
+        <th>Defeated By</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @runs.any? %>
+        <% @runs.each do |run| %>
+          <tr class="<%= run.victory ? 'victory-row' : 'defeat-row' %>">
+            <td class="date-cell">
+              <% if run.run_at %>
+                <div class="date-display">
+                  <span class="date-day"><%= run.run_at.strftime('%b %d') %></span>
+                  <span class="date-time"><%= run.run_at.strftime('%H:%M') %></span>
+                  <span class="date-year"><%= run.run_at.strftime('%Y') %></span>
+                </div>
+              <% else %>-<% end %>
+            </td>
+            <td>
+              <span class="character-badge <%= run.character&.downcase %>">
+                <%= run.character %>
+              </span>
+            </td>
+            <td class="ascension-cell">A<%= run.ascension_level %></td>
+            <td class="result-cell <%= run.victory ? 'victory' : 'defeat' %>">
+              <%= run.victory ? 'Victory' : 'Defeat' %>
+            </td>
+            <td class="floor-cell"><%= run.floor_reached %></td>
+            <td class="enemy-cell"><%= run.killed_by.presence || '-' %></td>
+            <td class="actions-cell">
+              <%= link_to run_path(run), class: 'view-run-btn' do %>
+                View Details
+                <span class="btn-icon">→</span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="7" class="empty-state">
+            <div class="empty-state-content">
+              <div class="empty-icon">📊</div>
+              <h3>No Runs Recorded</h3>
+              <p>Your journey through the Spire awaits!</p>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
