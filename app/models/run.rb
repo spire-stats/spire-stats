@@ -1,4 +1,4 @@
 class Run < ApplicationRecord
-  belongs_to :users
-  belongs_to :run_files
+  belongs_to :user
+  belongs_to :run_file
 end
