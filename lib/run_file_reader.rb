@@ -8,7 +8,7 @@ module SpireStats
       @run_data["ascension_level"]
     end
 
-    def character_chosen
+    def character
       @run_data["character_chosen"]
     end
 
