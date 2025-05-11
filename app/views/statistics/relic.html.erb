@@ -1,13 +1,14 @@
-<h1>Statistics for <%= @relic.name %></h1>
+<div class="page-background">
+  <h1>Statistics for <%= @relic.name %></h1>
 
-<div class="mb-4">
-  <%= link_to "&laquo; Back to Statistics", statistics_path, class: "btn btn-secondary" %>
-  <% if @relic.character.present? %>
-    <%= link_to "&laquo; Back to #{Run::CHARACTER_NAME_MAPPING[@relic.character]} Relics", relics_statistics_path(character: @relic.character), class: "btn btn-secondary" %>
-  <% else %>
-    <%= link_to "&laquo; Back to All Relics", relics_statistics_path, class: "btn btn-secondary" %>
-  <% end %>
-</div>
+  <div class="mb-4 back-link">
+    <%= link_to raw("&laquo; Back to Statistics"), statistics_path, class: "btn btn-secondary" %>
+    <% if @relic.character.present? %>
+      <%= link_to raw("&laquo; Back to #{Run::CHARACTER_NAME_MAPPING[@relic.character]} Relics"), relics_statistics_path(character: @relic.character), class: "btn btn-secondary" %>
+    <% else %>
+      <%= link_to raw("&laquo; Back to All Relics"), relics_statistics_path, class: "btn btn-secondary" %>
+    <% end %>
+  </div>
 
 <div class="row">
   <div class="col-md-6">
@@ -67,27 +68,30 @@
     <h3>Recent Runs with <%= @relic.name %></h3>
   </div>
   <div class="card-body">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Character</th>
-          <th>Ascension</th>
-          <th>Date</th>
-          <th>Result</th>
-          <th>Floor Reached</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% RunRelic.includes(:run).where(relic: @relic).order("runs.created_at DESC").limit(10).each do |run_relic| %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
           <tr>
-            <td><%= run_relic.run.character_name %></td>
-            <td><%= run_relic.run.ascension_level %></td>
-            <td><%= run_relic.run.created_at.strftime("%Y-%m-%d") %></td>
-            <td><%= run_relic.run.victory? ? "Victory" : "Defeat" %></td>
-            <td><%= run_relic.run.floor_reached %></td>
+            <th>Character</th>
+            <th>Ascension</th>
+            <th>Date</th>
+            <th>Result</th>
+            <th>Floor Reached</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% RunRelic.includes(:run).where(relic: @relic).order("runs.created_at DESC").limit(10).each do |run_relic| %>
+            <tr>
+              <td><%= run_relic.run.character_name %></td>
+              <td><%= run_relic.run.ascension_level %></td>
+              <td><%= run_relic.run.created_at.strftime("%Y-%m-%d") %></td>
+              <td><%= run_relic.run.victory? ? "Victory" : "Defeat" %></td>
+              <td><%= run_relic.run.floor_reached %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+</div> <!-- Close page-background div -->

@@ -15,11 +15,22 @@ class RunCard < ApplicationRecord
       upgraded = card_name.include?("+")
       base_name = card_name.gsub(/\+\d+$/, "")
 
-      # Find the card in the database
+      # Find the card in the database or create it if it doesn't exist
       card = Card.find_by(name: base_name)
 
-      # Skip if we don't have this card in our database yet
-      next unless card
+      unless card
+        # Create the card with default values based on the run's character
+        # We can improve this later with actual data if needed
+        card = Card.create!(
+          name: base_name,
+          character: run.character, # Associate with the run's character
+          card_type: "UNKNOWN",    # Default type
+          rarity: "UNKNOWN",       # Default rarity
+          cost: 0,                # Default cost
+          description: "Description unknown" # Default description
+        )
+        Rails.logger.info("Created new card: #{base_name} for character: #{run.character}")
+      end
 
       # Create the run_card record
       create(

@@ -18,25 +18,39 @@ if data_user.nil?
   data_user.save!
 end
 
+puts "Seeding run files from db/data/runs..."
+
 Dir[File.join('db/data/runs', '*.run')].each do |file|
+  puts "Processing #{File.basename(file)}..."
   run_json = File.read(file)
-  run_file = RunFile.find_or_create_by(
+
+  run_file = RunFile.find_or_initialize_by(
     run_data: run_json,
     user: data_user
   )
 
-  reader = SpireStats::RunFileReader.new(run_json)
-  Run.find_or_create_by(
-    character: reader.character,
-    ascension_level: reader.ascension_level,
-    floor_reached: reader.floor_reached,
-    seed: reader.seed,
-    victory: reader.victory,
-    killed_by: reader.killed_by,
-    run_at: reader.run_at,
-    user: data_user,
-    run_file: run_file
-  )
+  if run_file.new_record?
+    run_file.save(validate: false)
+  end
+
+  if run_file.run.present?
+    puts "  Run already exists for #{File.basename(file)}, skipping"
+    next
+  end
+
+  begin
+    puts "  Processing data..."
+    run = RunDataProcessor.process_run_file(run_file)
+
+    if run
+      puts "  Successfully processed run for #{run.character_name} (Ascension #{run.ascension_level})"
+      puts "  Created #{run.run_cards.count} cards, #{run.run_relics.count} relics"
+    else
+      puts "  Error processing run data"
+    end
+  rescue => e
+    puts "  Error processing #{File.basename(file)}: #{e.message}"
+  end
 end
 
 puts "Database seeded successfully!"
