@@ -1,0 +1,17 @@
+This is a web application for the Slay the Spire community to aggregate stats for runs, using the data stored in
+the .run files that the game provides as artifacts. The intent is for players to be able to visit the application and
+view community-wide statistics for how individual cards, relics, and other pieces perform in runs either in isolation, in
+combination with eachother, or when taken at various times in a run.
+
+The application is built on Ruby on Rails, deployed with Kamal, and is open source. Make all of your changes with this in mind.
+Do not fundamentally change the structure or design of the application when attempting to solve a problem without fully exhausting
+all of the options available within the current design. Do not bring in new gems or external dependencies unless they are clearly
+necessary to avoid adding complexity to the application. When working within view files, always stay consistent with the patterns
+of the current design.
+
+When generating database migrations, always think about potential relationships between other models in the application and add foreign
+keys as necessary. This application employs strong foreign key relationships between its models. Also always consider which columns
+should be indexed for faster query performance, including multi-column indices.
+
+When working with controllers, views, models, or any other parts of the application, always look for existing precedent and stay
+consistent with the patterns of the current design.

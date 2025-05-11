@@ -25,7 +25,7 @@
   <table class="run-table">
     <thead>
       <tr>
-        <th>Date</th>
+        <th class="indicator-cell"></th>
         <th>Character</th>
         <th>Ascension Level</th>
         <th>Result</th>
@@ -37,19 +37,11 @@
     <tbody>
       <% if @runs.any? %>
         <% @runs.each do |run| %>
-          <tr class="<%= run.victory ? 'victory-row' : 'defeat-row' %>">
-            <td class="date-cell">
-              <% if run.run_at %>
-                <div class="date-display">
-                  <span class="date-day"><%= run.run_at.strftime('%b %d') %></span>
-                  <span class="date-time"><%= run.run_at.strftime('%H:%M') %></span>
-                  <span class="date-year"><%= run.run_at.strftime('%Y') %></span>
-                </div>
-              <% else %>-<% end %>
-            </td>
-            <td>
-              <span class="character-badge <%= run.character&.downcase %>">
-                <%= run.character %>
+          <tr>
+            <td class="indicator-cell <%= run.victory ? 'victory-indicator' : 'defeat-indicator' %>"></td>
+            <td class="character-cell">
+              <span class="character-badge <%= run.character_name&.downcase %>">
+                <%= run.character_name %>
               </span>
             </td>
             <td class="ascension-cell">A<%= run.ascension_level %></td>
