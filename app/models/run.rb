@@ -9,7 +9,13 @@ class Run < ApplicationRecord
     "WATCHER" => "Watcher"
   }
 
+  scope :by_character, ->(char) { where(character: char) }
+
   def character_name
     CHARACTER_NAME_MAPPING[character]
+  end
+
+  def victory?
+    victory
   end
 end

@@ -8,6 +8,7 @@ class CreateRuns < ActiveRecord::Migration[8.0]
       t.string :character
       t.datetime :run_at
       t.string :seed
+      t.jsonb :card_picks, default: []
 
       t.references :user, null: false, foreign_key: true
       t.references :run_file, null: false, foreign_key: true
