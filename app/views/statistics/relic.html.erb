@@ -1,0 +1,93 @@
+<h1>Statistics for <%= @relic.name %></h1>
+
+<div class="mb-4">
+  <%= link_to "&laquo; Back to Statistics", statistics_path, class: "btn btn-secondary" %>
+  <% if @relic.character.present? %>
+    <%= link_to "&laquo; Back to #{Run::CHARACTER_NAME_MAPPING[@relic.character]} Relics", relics_statistics_path(character: @relic.character), class: "btn btn-secondary" %>
+  <% else %>
+    <%= link_to "&laquo; Back to All Relics", relics_statistics_path, class: "btn btn-secondary" %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Relic Information</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <p><strong>Name:</strong></p>
+            <p><strong>Rarity:</strong></p>
+            <p><strong>Character:</strong></p>
+          </div>
+          <div class="col-md-8">
+            <p><%= @relic.name %></p>
+            <p><%= @relic.rarity %></p>
+            <p><%= @relic.character ? Run::CHARACTER_NAME_MAPPING[@relic.character] : "All" %></p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-12">
+            <p><strong>Description:</strong> <%= @relic.description %></p>
+            <p><strong>Flavor Text:</strong> <em><%= @relic.flavor_text %></em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Relic Performance</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Acquisition Rate:</strong></p>
+            <p><strong>Win Rate with Relic:</strong></p>
+            <p><strong>Runs with Relic:</strong></p>
+          </div>
+          <div class="col-md-6">
+            <p><%= @acquisition_rate %>%</p>
+            <p><%= @win_rate_with_relic %>%</p>
+            <p><%= @runs_with_relic %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3>Recent Runs with <%= @relic.name %></h3>
+  </div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Character</th>
+          <th>Ascension</th>
+          <th>Date</th>
+          <th>Result</th>
+          <th>Floor Reached</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% RunRelic.includes(:run).where(relic: @relic).order("runs.created_at DESC").limit(10).each do |run_relic| %>
+          <tr>
+            <td><%= run_relic.run.character_name %></td>
+            <td><%= run_relic.run.ascension_level %></td>
+            <td><%= run_relic.run.created_at.strftime("%Y-%m-%d") %></td>
+            <td><%= run_relic.run.victory? ? "Victory" : "Defeat" %></td>
+            <td><%= run_relic.run.floor_reached %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

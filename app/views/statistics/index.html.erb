@@ -1,0 +1,153 @@
+<h1>Slay the Spire Statistics</h1>
+
+<div class="stats-overview">
+  <div class="card">
+    <h2>Overall Stats</h2>
+    <p>Total Runs: <%= @total_runs %></p>
+    <p>Overall Victory Rate: <%= @victory_rate %>%</p>
+  </div>
+</div>
+
+<h2>Character Stats</h2>
+<div class="character-stats">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Character</th>
+        <th>Runs</th>
+        <th>Victories</th>
+        <th>Win Rate</th>
+        <th>Avg. Floor</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @character_stats.each do |stat| %>
+        <tr>
+          <td><%= stat[:name] %></td>
+          <td><%= stat[:total] %></td>
+          <td><%= stat[:victories] %></td>
+          <td><%= stat[:win_rate] %>%</td>
+          <td><%= stat[:avg_floor] %></td>
+          <td>
+            <%= link_to "View Cards", cards_statistics_path(character: stat[:character]), class: "btn btn-sm btn-primary" %>
+            <%= link_to "View Relics", relics_statistics_path(character: stat[:character]), class: "btn btn-sm btn-info" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <h2>Most Picked Cards</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Card</th>
+          <th>Character</th>
+          <th>Type</th>
+          <th>Pick Count</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @most_picked_cards.each do |card| %>
+          <tr>
+            <td><%= card.name %></td>
+            <td><%= Run::CHARACTER_NAME_MAPPING[card.character] || "Colorless" %></td>
+            <td><%= card.card_type %></td>
+            <td><%= card.pick_count %></td>
+            <td><%= link_to "Details", card_statistics_path(id: card.id), class: "btn btn-sm btn-primary" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6">
+    <h2>Most Skipped Cards</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Card</th>
+          <th>Character</th>
+          <th>Type</th>
+          <th>Skip Count</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @most_skipped_cards.each do |card| %>
+          <tr>
+            <td><%= card.name %></td>
+            <td><%= Run::CHARACTER_NAME_MAPPING[card.character] || "Colorless" %></td>
+            <td><%= card.card_type %></td>
+            <td><%= card.skip_count %></td>
+            <td><%= link_to "Details", card_statistics_path(id: card.id), class: "btn btn-sm btn-primary" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <h2>Most Acquired Relics</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Relic</th>
+          <th>Rarity</th>
+          <th>Acquired Count</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @most_acquired_relics.each do |relic| %>
+          <tr>
+            <td><%= relic.name %></td>
+            <td><%= relic.rarity %></td>
+            <td><%= relic.acquire_count %></td>
+            <td><%= link_to "Details", relic_statistics_path(id: relic.id), class: "btn btn-sm btn-primary" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6">
+    <h2>Most Rejected Relics</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Relic</th>
+          <th>Rarity</th>
+          <th>Reject Count</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @most_rejected_relics.each do |relic| %>
+          <tr>
+            <td><%= relic.name %></td>
+            <td><%= relic.rarity %></td>
+            <td><%= relic.reject_count %></td>
+            <td><%= link_to "Details", relic_statistics_path(id: relic.id), class: "btn btn-sm btn-primary" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card mt-4">
+  <div class="card-body">
+    <h2>Other Statistics</h2>
+    <ul>
+      <li><%= link_to "Enemy Encounters", encounters_statistics_path, class: "btn btn-sm btn-primary" %></li>
+    </ul>
+  </div>
+</div>
