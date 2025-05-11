@@ -33,7 +33,6 @@ Dir[File.join('db/data/runs', '*.run')].each do |file|
     seed: reader.seed,
     victory: reader.victory,
     killed_by: reader.killed_by,
-    card_picks: reader.card_picks,
     run_at: reader.run_at,
     user: data_user,
     run_file: run_file
