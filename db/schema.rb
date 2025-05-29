@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_11_221500) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_11_232043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -89,6 +89,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_11_221500) do
     t.boolean "removed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "source"
     t.index ["card_id"], name: "index_run_cards_on_card_id"
     t.index ["run_id", "card_id", "floor_obtained"], name: "idx_run_cards_occurrence"
     t.index ["run_id"], name: "index_run_cards_on_run_id"

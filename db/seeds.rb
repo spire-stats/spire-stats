@@ -2,6 +2,7 @@
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 require_relative '../lib/run_file_reader'
+require_relative '../app/services/run_data_processor'
 
 puts "Seeding database..."
 
@@ -24,14 +25,10 @@ Dir[File.join('db/data/runs', '*.run')].each do |file|
   puts "Processing #{File.basename(file)}..."
   run_json = File.read(file)
 
-  run_file = RunFile.find_or_initialize_by(
+  run_file = RunFile.find_or_create_by(
     run_data: run_json,
     user: data_user
   )
-
-  if run_file.new_record?
-    run_file.save(validate: false)
-  end
 
   if run_file.run.present?
     puts "  Run already exists for #{File.basename(file)}, skipping"
@@ -40,7 +37,7 @@ Dir[File.join('db/data/runs', '*.run')].each do |file|
 
   begin
     puts "  Processing data..."
-    run = RunDataProcessor.process_run_file(run_file)
+    run = SpireStats::RunDataProcessor.new.process_run_file(run_file)
 
     if run
       puts "  Successfully processed run for #{run.character_name} (Ascension #{run.ascension_level})"

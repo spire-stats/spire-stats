@@ -2,10 +2,35 @@ class RelicChoice < ApplicationRecord
   belongs_to :run
   belongs_to :relic
 
+  # Constants for relic sources/rarities
+  BOSS  = "BOSS"
+  SHOP  = "SHOP"
+  EVENT = "EVENT"
+
   scope :picked, -> { where(picked: true) }
   scope :not_picked, -> { where(picked: false) }
 
-  # Method to process boss relic choices from run file
+  def self.find_or_create_relic(relic_name, run, source)
+    relic = Relic.find_by(name: relic_name)
+
+    unless relic
+      character = RunRelic.determine_relic_character(relic_name, run.character)
+      rarity = source.upcase
+
+      relic = Relic.create!(
+        name: relic_name,
+        character: character,
+        rarity: rarity,
+        description: "Description unknown",
+        flavor_text: "Flavor text unknown"
+      )
+
+      Rails.logger.info("Created new #{source} relic: #{relic_name} for character: #{character || 'All'}")
+    end
+
+    relic
+  end
+
   def self.process_boss_relics(run, boss_relics)
     return [] unless boss_relics
 
@@ -19,35 +44,30 @@ class RelicChoice < ApplicationRecord
       else 50         # Act 3 boss
       end
 
-      # Process the picked relic
       if choice["picked"] != "SKIP"
-        relic = Relic.find_by(name: choice["picked"])
+        relic = find_or_create_relic(choice["picked"], run, BOSS)
 
-        if relic
-          results << create(
-            run: run,
-            relic: relic,
-            floor: estimated_floor,
-            picked: true,
-            source: "boss"
-          )
-        end
+        results << create(
+          run: run,
+          relic: relic,
+          floor: estimated_floor,
+          picked: true,
+          source: BOSS
+        )
       end
 
       # Process the not picked relics
       if choice["not_picked"].present?
         choice["not_picked"].each do |not_picked_name|
-          relic = Relic.find_by(name: not_picked_name)
+          relic = find_or_create_relic(not_picked_name, run, BOSS)
 
-          if relic
-            results << create(
-              run: run,
-              relic: relic,
-              floor: estimated_floor,
-              picked: false,
-              source: "boss"
-            )
-          end
+          results << create(
+            run: run,
+            relic: relic,
+            floor: estimated_floor,
+            picked: false,
+            source: BOSS
+          )
         end
       end
     end
@@ -55,31 +75,29 @@ class RelicChoice < ApplicationRecord
     results
   end
 
-  # Method to process shop relic choices from run file
-  def self.process_shop_relics(run, shop_contents)
+  def self.process_shop_relics(run, run_file_reader)
+    shop_contents = run_file_reader.shop_contents
     return [] unless shop_contents
 
     results = []
+    items_purchased_list = run_file_reader.items_purchased
 
     shop_contents.each do |shop|
       floor = shop["floor"]
 
       if shop["relics"].present?
         shop["relics"].each do |relic_name|
-          relic = Relic.find_by(name: relic_name)
+          relic = find_or_create_relic(relic_name, run, SHOP)
 
-          if relic
-            # Determine if it was purchased by checking items_purchased
-            was_purchased = run.items_purchased.include?(relic_name)
+          was_purchased = items_purchased_list.include?(relic_name)
 
-            results << create(
-              run: run,
-              relic: relic,
-              floor: floor,
-              picked: was_purchased,
-              source: "shop"
-            )
-          end
+          results << create(
+            run: run,
+            relic: relic,
+            floor: floor,
+            picked: was_purchased,
+            source: SHOP
+          )
         end
       end
     end
@@ -87,7 +105,6 @@ class RelicChoice < ApplicationRecord
     results
   end
 
-  # Method to process event relic choices from run file
   def self.process_event_relics(run, event_choices)
     return [] unless event_choices
 
@@ -98,17 +115,15 @@ class RelicChoice < ApplicationRecord
         floor = event["floor"]
 
         event["relics_obtained"].each do |relic_name|
-          relic = Relic.find_by(name: relic_name)
+          relic = find_or_create_relic(relic_name, run, EVENT)
 
-          if relic
-            results << create(
-              run: run,
-              relic: relic,
-              floor: floor,
-              picked: true,
-              source: "event"
-            )
-          end
+          results << create(
+            run: run,
+            relic: relic,
+            floor: floor,
+            picked: true,
+            source: EVENT
+          )
         end
       end
     end

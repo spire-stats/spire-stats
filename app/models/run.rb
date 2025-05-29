@@ -62,7 +62,7 @@ class Run < ApplicationRecord
     RelicChoice.process_boss_relics(self, run_file_reader.boss_relics_data)
 
     # Process shop relic choices
-    RelicChoice.process_shop_relics(self, run_file_reader.shop_contents)
+    RelicChoice.process_shop_relics(self, run_file_reader)
 
     # Process event relic choices
     RelicChoice.process_event_relics(self, run_file_reader.event_choices)

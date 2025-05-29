@@ -31,7 +31,7 @@ module SpireStats
     def run_at
       ts = @run_data["timestamp"]
       return nil unless ts
-      Time.at(ts).in_time_zone
+        Time.at(ts).in_time_zone
     end
 
     def master_deck
