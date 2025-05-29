@@ -33,7 +33,6 @@ class Run < ApplicationRecord
     victory
   end
 
-  # Helper method to process damage taken (enemy encounters)
   def process_damage_taken(damage_taken)
     return unless damage_taken
 
@@ -53,18 +52,10 @@ class Run < ApplicationRecord
     end
   end
 
-  # Process all choice data from a run file
   def process_choice_data(run_file_reader)
-    # Process card choices
     CardChoice.process_from_run_data(self, run_file_reader.card_choices)
-
-    # Process boss relic choices
     RelicChoice.process_boss_relics(self, run_file_reader.boss_relics_data)
-
-    # Process shop relic choices
     RelicChoice.process_shop_relics(self, run_file_reader)
-
-    # Process event relic choices
     RelicChoice.process_event_relics(self, run_file_reader.event_choices)
   end
 end
