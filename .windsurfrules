@@ -16,4 +16,5 @@ should be indexed for faster query performance, including multi-column indices.
 When working with controllers, views, models, or any other parts of the application, always look for existing precedent and stay
 consistent with the patterns of the current design.
 
-Do not annotate your code with comments unless explicitly asked to do so.
+Do not annotate your code with comments unless explicitly asked to do so. Do NOT write comments on your code. Your code should be
+self-explanatory and easy to understand.
