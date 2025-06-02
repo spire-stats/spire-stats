@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-require_relative '../../lib/run_file_reader'
-require_relative '../../app/services/deck_tracker'
+require_relative '../../lib/spire_stats/run_file_reader'
+require_relative '../../app/services/spire_stats/deck_tracker'
 
 RSpec.describe SpireStats::DeckTracker do
   let(:run) { double("Run", character: "IRONCLAD") }
