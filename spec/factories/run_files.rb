@@ -8,18 +8,18 @@ FactoryBot.define do
         "floor_reached" => 50,
         "victory" => true,
         "timestamp" => Time.current.to_i,
-        "master_deck" => ["Strike", "Strike+1", "Defend", "Bash", "Feed"],
+        "master_deck" => [ "Strike", "Strike+1", "Defend", "Bash", "Feed" ],
         "card_choices" => [
           {
             "floor" => 3,
             "picked" => "Feed",
-            "not_picked" => ["Carnage", "Clash"],
+            "not_picked" => [ "Carnage", "Clash" ],
             "picking_player" => 0
           },
           {
             "floor" => 7,
             "picked" => "Strike+1",
-            "not_picked" => ["Defend+1", "Flex"],
+            "not_picked" => [ "Defend+1", "Flex" ],
             "picking_player" => 0
           }
         ],
@@ -28,7 +28,7 @@ FactoryBot.define do
             "floor" => 5,
             "event_name" => "Living Wall",
             "player_choice" => "Forget",
-            "cards_removed" => ["Strike"],
+            "cards_removed" => [ "Strike" ],
             "damage_healed" => 0,
             "gold_gain" => 0,
             "cards_obtained" => [],
@@ -42,7 +42,7 @@ FactoryBot.define do
             "cost" => 75
           }
         ],
-        "relics" => ["Burning Blood", "Vajra"],
+        "relics" => [ "Burning Blood", "Vajra" ],
         "relics_obtained" => [
           {
             "floor" => 0,
