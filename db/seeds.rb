@@ -1,7 +1,7 @@
 require 'json'
 
-require_relative '../lib/run_file_reader'
-require_relative '../app/services/run_data_processor'
+require_relative '../lib/spire_stats/run_file_reader'
+require_relative '../app/services/spire_stats/run_data_processor'
 
 puts "Seeding database..."
 puts "Seeding cards and relics from db/data/items.json..."
