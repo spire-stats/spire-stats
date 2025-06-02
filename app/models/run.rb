@@ -33,29 +33,8 @@ class Run < ApplicationRecord
     victory
   end
 
-  def process_damage_taken(damage_taken)
-    return unless damage_taken
-
-    damage_taken.each do |encounter|
-      is_elite = EnemyEncounter.elite_encounter?(encounter["enemies"])
-      is_boss = EnemyEncounter.boss_encounter?(encounter["enemies"])
-
-      enemy_encounters.create(
-        enemies: encounter["enemies"],
-        floor: encounter["floor"],
-        damage_taken: encounter["damage"],
-        turns: encounter["turns"],
-        is_elite: is_elite,
-        is_boss: is_boss,
-        was_killing_blow: (killed_by == encounter["enemies"])
-      )
-    end
-  end
-
   def process_choice_data(run_file_reader)
     CardChoice.process_from_run_data(self, run_file_reader.card_choices)
-    RelicChoice.process_boss_relics(self, run_file_reader.boss_relics_data)
-    RelicChoice.process_shop_relics(self, run_file_reader)
-    RelicChoice.process_event_relics(self, run_file_reader.event_choices)
+    RelicChoice.process_all_from_run_data(self, run_file_reader)
   end
 end

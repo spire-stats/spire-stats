@@ -45,7 +45,7 @@ module SpireStats
     end
 
     def process_encounters
-      @run.process_damage_taken(@run_file_reader.damage_taken)
+      EnemyEncounter.process_for_run(@run, @run_file_reader.damage_taken)
     end
 
     def process_choices
