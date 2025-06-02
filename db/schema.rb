@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_11_232043) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_02_010413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -38,6 +38,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_11_232043) do
     t.boolean "base_version", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_filename"
     t.index ["name", "character"], name: "index_cards_on_name_and_character", unique: true
   end
 
@@ -78,6 +79,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_11_232043) do
     t.text "flavor_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_filename"
     t.index ["name"], name: "index_relics_on_name", unique: true
   end
 

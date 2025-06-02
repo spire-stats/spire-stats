@@ -11,9 +11,12 @@ class Card < ApplicationRecord
   scope :by_rarity, ->(rarity) { where(rarity: rarity) }
   scope :base_cards, -> { where(base_version: true) }
 
-  # Finds both base and upgraded versions
   def self.find_all_versions(name)
     base_name = name.gsub(/\+\d+$/, "")
     where("name LIKE ?", "#{base_name}%")
+  end
+
+  def name
+    read_attribute(:name).gsub(/([a-z])([A-Z])/, '\1 \2')
   end
 end
