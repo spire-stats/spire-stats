@@ -1,0 +1,43 @@
+<div class="page-background">
+  <h1>Enemy Encounter Statistics</h1>
+
+  <div class="mb-4 back-link">
+    <%= link_to raw("&laquo; Back to Statistics"), statistics_path, class: "btn btn-secondary" %>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Enemy Encounters</h2>
+    </div>
+    <div class="card-body">
+      <p>This table shows statistics about enemy encounters across all runs.</p>
+
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Enemy</th>
+              <th>Encounters</th>
+              <th>Avg. Damage</th>
+              <th>Avg. Turns</th>
+              <th>Killing Blows</th>
+              <th>Mortality Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @enemy_encounters.each do |enemy| %>
+              <tr>
+                <td><%= enemy.enemies %></td>
+                <td><%= enemy.count %></td>
+                <td><%= enemy.avg_damage.round(1) if enemy.avg_damage %></td>
+                <td><%= enemy.avg_turns.round(1) if enemy.avg_turns %></td>
+                <td><%= enemy.killing_blows %></td>
+                <td><%= ((enemy.killing_blows.to_f / enemy.count) * 100).round(2) %>%</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

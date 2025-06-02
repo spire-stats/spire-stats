@@ -1,0 +1,100 @@
+<div class="page-background">
+  <h1>Statistics for <%= @card.name %></h1>
+
+  <div class="mb-4 back-link">
+    <%= link_to raw("&laquo; Back to Statistics"), statistics_path, class: "btn btn-secondary" %>
+    <% if @card.character.present? %>
+      <%= link_to raw("&laquo; Back to #{Run::CHARACTER_NAME_MAPPING[@card.character]} Cards"), cards_statistics_path(character: @card.character), class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Card Information</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <p><strong>Name:</strong></p>
+            <p><strong>Type:</strong></p>
+            <p><strong>Rarity:</strong></p>
+            <p><strong>Cost:</strong></p>
+            <p><strong>Character:</strong></p>
+          </div>
+          <div class="col-md-8">
+            <p><%= @card.name %></p>
+            <p><%= @card.card_type %></p>
+            <p><%= @card.rarity %></p>
+            <p><%= @card.cost %></p>
+            <p><%= Run::CHARACTER_NAME_MAPPING[@card.character] || "Colorless" %></p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-12">
+            <p><strong>Description:</strong> <%= @card.description %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Card Performance</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Pick Rate:</strong></p>
+            <p><strong>Win Rate with Card:</strong></p>
+            <p><strong>Runs with Card:</strong></p>
+            <p><strong>Avg. Floor Taken:</strong></p>
+          </div>
+          <div class="col-md-6">
+            <p><%= @pick_rate %>%</p>
+            <p><%= @win_rate_with_card %>%</p>
+            <p><%= @runs_with_card %></p>
+            <p><%= @average_floor_taken || "N/A" %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3>Recent Runs with <%= @card.name %></h3>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Character</th>
+            <th>Ascension</th>
+            <th>Date</th>
+            <th>Result</th>
+            <th>Floor Reached</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% RunCard.includes(:run).where(card: @card).order("runs.created_at DESC").limit(10).each do |run_card| %>
+            <tr>
+              <td><%= run_card.run.character_name %></td>
+              <td><%= run_card.run.ascension_level %></td>
+              <td><%= run_card.run.created_at.strftime("%Y-%m-%d") %></td>
+              <td><%= run_card.run.victory? ? "Victory" : "Defeat" %></td>
+              <td><%= run_card.run.floor_reached %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div> <!-- Close page-background div -->

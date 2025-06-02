@@ -1,0 +1,75 @@
+<div class="page-background">
+  <h1><%= Run::CHARACTER_NAME_MAPPING[@character] %> Cards Statistics</h1>
+
+  <div class="mb-4 back-link">
+    <%= link_to raw("&laquo; Back to Statistics"), statistics_path, class: "btn btn-secondary" %>
+  </div>
+
+<div class="card mb-4">
+  <div class="card-header">
+    <h2>Card Pick Rates</h2>
+  </div>
+  <div class="card-body">
+    <p>This table shows how often cards are picked when they are offered in card rewards.</p>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Card</th>
+            <th>Times Picked</th>
+            <th>Times Skipped</th>
+            <th>Pick Rate</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @card_stats.sort_by { |stat| -stat[:pick_rate] }.each do |stat| %>
+            <tr>
+              <td><%= stat[:name] %></td>
+              <td><%= stat[:times_picked] %></td>
+              <td><%= stat[:times_skipped] %></td>
+              <td><%= stat[:pick_rate] %>%</td>
+              <td><%= link_to "Details", card_statistics_path(id: stat[:id]), class: "btn btn-sm btn-primary" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Card Database</h2>
+  </div>
+  <div class="card-body">
+    <p>All cards available for <%= Run::CHARACTER_NAME_MAPPING[@character] %></p>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Rarity</th>
+            <th>Cost</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cards.each do |card| %>
+            <tr>
+              <td><%= link_to card.name, card_statistics_path(id: card.id) %></td>
+              <td><%= card.card_type %></td>
+              <td><%= card.rarity %></td>
+              <td><%= card.cost %></td>
+              <td><%= card.description %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div> <!-- Close page-background div -->

@@ -1,0 +1,73 @@
+<div class="page-background">
+  <h1><%= Run::CHARACTER_NAME_MAPPING[@character] || "All" %> Relics Statistics</h1>
+
+  <div class="mb-4 back-link">
+    <%= link_to raw("&laquo; Back to Statistics"), statistics_path, class: "btn btn-secondary" %>
+  </div>
+
+<div class="card mb-4">
+  <div class="card-header">
+    <h2>Relic Acquisition Rates</h2>
+  </div>
+  <div class="card-body">
+    <p>This table shows how often relics are acquired when they are offered.</p>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Relic</th>
+            <th>Acquired</th>
+            <th>Rejected</th>
+            <th>Rate</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @relic_stats.sort_by { |stat| -stat[:acquisition_rate] }.each do |stat| %>
+            <tr>
+              <td><%= stat[:name] %></td>
+              <td><%= stat[:times_acquired] %></td>
+              <td><%= stat[:times_rejected] %></td>
+              <td><%= stat[:acquisition_rate] %>%</td>
+              <td><%= link_to "Details", relic_statistics_path(id: stat[:id]), class: "btn btn-sm btn-primary" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Relic Database</h2>
+  </div>
+  <div class="card-body">
+    <p>All relics available for <%= Run::CHARACTER_NAME_MAPPING[@character] || "all characters" %></p>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Rarity</th>
+            <th>Description</th>
+            <th>Flavor Text</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @relics.each do |relic| %>
+            <tr>
+              <td><%= link_to relic.name, relic_statistics_path(id: relic.id) %></td>
+              <td><%= relic.rarity %></td>
+              <td><%= relic.description %></td>
+              <td><em><%= relic.flavor_text %></em></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div> <!-- Close page-background div -->

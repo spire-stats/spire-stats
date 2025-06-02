@@ -13,9 +13,17 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  # Statistics routes
+  get "statistics" => "statistics#index", as: :statistics
+  get "statistics/cards" => "statistics#cards", as: :cards_statistics
+  get "statistics/card/:id" => "statistics#card", as: :card_statistics
+  get "statistics/relics" => "statistics#relics", as: :relics_statistics
+  get "statistics/relic/:id" => "statistics#relic", as: :relic_statistics
+  get "statistics/encounters" => "statistics#encounters", as: :encounters_statistics
+
   get "stats" => "stats#index", as: :stats
 
-  root "stats#index"
+  root "statistics#index"
   resources :runs, only: [ :index, :show ]
 
   authenticate :user, ->(user) { user.admin? } do
