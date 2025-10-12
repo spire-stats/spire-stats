@@ -10,7 +10,10 @@ class RelicChoice < ApplicationRecord
   scope :not_picked, -> { where(picked: false) }
 
   def self.find_or_create_relic(relic_name, run, source)
-    relic = Relic.find_by(name: relic_name)
+    return if relic_name.nil?
+
+    cleaned_relic_name = relic_name.gsub(/\s+/, "").gsub(/[^a-zA-Z0-9]/, "")
+    relic = Relic.find_by(internal_name: cleaned_relic_name)
 
     unless relic
       character = RunRelic.determine_relic_character(relic_name, run.character)
@@ -47,7 +50,7 @@ class RelicChoice < ApplicationRecord
       else 50         # Act 3 boss
       end
 
-      if choice["picked"] != "SKIP"
+      if choice["picked"].present?
         relic = find_or_create_relic(choice["picked"], run, BOSS)
 
         create(

@@ -14,9 +14,6 @@ module SpireStats
 
         @run
       end
-    rescue StandardError => e
-      Rails.logger.error("Error processing run data: #{e.message}\n#{e.backtrace.join("\n")}")
-      nil
     end
 
     private

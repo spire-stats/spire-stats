@@ -66,7 +66,9 @@ else
       relic.flavor_text = relic_data["flavorText"]
 
       cleaned_relic_name = relic_data["name"].gsub(/\s+/, '').gsub(/[^a-zA-Z0-9]/, '')
+      relic.internal_name = relic_data["internal_name"] || cleaned_relic_name
       relic.image_filename = "#{cleaned_relic_name}.png"
+
       relics_created += 1 if relic.new_record?
     end
   end
